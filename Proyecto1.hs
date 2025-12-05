@@ -132,7 +132,7 @@ moveVehicle lista index k = newL
 --- solveRushHour devuelve una tupla con el número mínimo de movimientos para resolver el tablero
 --- y la lista de tableros que representan el camino desde el tablero inicial hasta la solución
 solveRushHour :: Board -> (Int, [Board])
-solveRushHour [] = (-1, []) 
-solveRushHour initialBoard | esSolucion initialBoard = (0, [initialBoard])
-                            | otherwise = bfs [(initialBoard, [initialBoard])] [initialBoard] --[(Tablero Actual, [Camino hasta TA])] [Visitados]
-
+solveRushHour [] = (-1, [])
+solveRushHour tablero | null (initialBoard tablero) = (-1, []) -- si el tablero inicial no es válido
+                      | esSolucion tablero = (0, [tablero]) -- si el tablero inicial ya es solución
+                      | otherwise = bfs [(tablero, [tablero])] [tablero] --[(Tablero Actual, [Camino hasta TA])] [Visitados]
