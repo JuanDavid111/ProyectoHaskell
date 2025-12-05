@@ -75,18 +75,19 @@ esSolucion ((H, (f,c), l):_) | c + l - 1 >= 5 = True
 --- Búsqueda en anchura (BFS) para encontrar la solución
 bfs :: [(Board, [Board])] -> [Board] -> (Int, [Board])
 bfs [] _ = (-1, []) -- No hay solución
-bfs ((currentBoard, path):queue) visited   | esSolucion currentBoard = (length path-1, reverse path)
+bfs ((currentBoard, path):queue) visited   | esSolucion currentBoard = (length path-1, reverse path) --retorna el tamaño del camino y el camino invertido
                                             | otherwise = bfs newQueue newVisited
         where
-            newStates = [(newBoard, newBoard:path) | i <- [0..length currentBoard - 1],
-                                                          k <- [-5..5],
-                                                          k /= 0,
-                                                          isValidMove currentBoard i k,
-                                                          let newBoard = moveVehicle currentBoard i k,
-                                                          newBoard /= currentBoard,
-                                                          newBoard `notElem` visited]
-            newQueue = queue ++ newStates
-            newVisited = visited ++ map fst newStates
+            newStates = [(newBoard, newBoard:path) | i <- [0..length currentBoard - 1],    -- índice del vehículo a mover
+                                                          k <- [-5..5],                    -- número de posiciones a mover
+                                                          k /= 0,                          -- evitar movimiento nulo
+                                                          isValidMove currentBoard i k,    -- verificar si el movimiento es válido
+                                                          let newBoard = moveVehicle currentBoard i k, -- nuevo tablero después del movimiento
+                                                          newBoard /= currentBoard,                    -- evitar estados repetidos
+                                                          newBoard `notElem` visited]                  -- evitar estados ya visitados
+            -- queue es una tupla (Tablero Actual, [Camino hasta TA])--
+            newQueue = queue ++ newStates -- agregar nuevos estados a la cola             
+            newVisited = visited ++ map fst newStates  -- agregar nuevos tableros visitados
 
 
 ----------- FUNCIONES PRINCIPALES ------
