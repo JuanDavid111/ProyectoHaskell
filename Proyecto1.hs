@@ -1,6 +1,5 @@
-
-
-
+-- Integrante 1: [Juan Fernandez] - [29615514]
+-- Integrante 2: [Diego Heredia] - [30667176]
 
 type Coord = (Int, Int)
 data Orientation = H | V deriving (Show, Eq)
