@@ -1,7 +1,9 @@
 
 type Coord = (Int, Int)
-data Orientation = H | V deriving (Show, Eq)  --Se usa deriving (Show, Eq) para permitir la impresión (Show) de los valores de este tipo
-                                                -- y la comparación de igualdad (Eq) de ello, sin deriving (Show, Eq).
+data Orientation = H | V deriving (Show, Eq)
+-- deriving (Show, Eq) crea automáticamente instancias de las clases Show y Eq para el tipo Orientation.
+--Se usa deriving (Show, Eq) para permitir la impresión (Show) de los valores de este tipo
+-- y la comparación de igualdad (Eq) de ello. sin esto, no podríamos comparar dos valores de tipo Orientation
 type Vehicle = (Orientation, Coord, Int) -- (Orientación, Coordenada Inicial, Longitud)
 type Board = [Vehicle]
 
